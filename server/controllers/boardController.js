@@ -8,12 +8,13 @@ export const uploadBoard = async (req, res) => {
     const day =  moment().tz("Asia/Seoul").format('YYYY/MM/DD HH:mm:ss');
     // console.log(day);
     const {
-      body: { title, description },
+      body: { title },
+      // body: { title, description },
       // file: { path }
     } = req;
     const newBoard = await Board.create({
       title,
-      description,
+      // description,
       createdAt: day,
       // fileUrl: path,
       creator: req.user._id,
@@ -54,20 +55,23 @@ export const editBoard = async (req, res) => {
   }
 };
 
-// show
-export const showBoard = async (req, res) => {
+// load
+export const loadBoard = async (req, res) => {
   try {
     const board = await Board.find({}).sort({ _id: -1 });
-    let boardId =[];
-    board.forEach(ele => boardId.push(ele.id));
+    // console.log(board);
+    // let boardId =[];
+    // let boardTitle =[];
+    // board.forEach(ele => boardId.push(ele.id));
+    // board.forEach(ele => boardTitle.push(ele.title));
     return res.status(200).json({
       success: true,
-      id: boardId
+      board: board
     });
   } catch (error) {
     console.log("showBoard");
     console.log(error);
-    return res.json({ success: false, message: "Error occurred"});
+    return res.json({ success: false, message: "Error occurred at loadBoard"});
   }
 };
 
