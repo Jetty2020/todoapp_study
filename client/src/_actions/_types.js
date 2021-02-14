@@ -8,3 +8,4 @@ export const LOGOUT_USER = 'logout_user';
 export const LOAD_BOARD = 'load_board';
 export const UPLOAD_BOARD = 'upload_board';
 export const DELETE_BOARD = 'delete_board';
+export const EDIT_BOARD = 'edit_board';

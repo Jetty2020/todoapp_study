@@ -9,7 +9,8 @@ import { BOARD_SERVER } from '../../Config.js';
 import { useDispatch } from "react-redux";
 import { 
   uploadBoard,
-  deleteBoard 
+  deleteBoard,
+  editBoard,
 } from "../../../_actions/board_actions";
 
 const getBoards = async () => {
@@ -29,6 +30,7 @@ const createBulkTodos = () => {
           id: board._id,
           title: board.title,
           checked: false,
+          edit: false,
         })
       )
     }
@@ -52,12 +54,12 @@ function Todo() {
         id: nextId.current,
         title,
         checked: false,
+        edit: false,
       };
     setTodos(todos => todos.concat(todo));
     nextId.current += 1; // nextId 1 씩 더하기
     let todos = {
 			title,
-      checked: false,
 		};
 		dispatch(uploadBoard(todos))
 			.then(response => {
@@ -85,7 +87,37 @@ function Todo() {
     console.log(id);
   }, []);
 
+  const onEditToggle = useCallback((id) => {
+    setTodos(todos =>
+      todos.map(todo =>
+        todo.id === id ? { ...todo, edit: !todo.edit } : todo,
+      ),
+    );
+  }, []);
+
+  const onEdit = useCallback((id, title) => {
+    setTodos(todos =>
+      todos.map(todo =>
+        todo.id === id ? { ...todo, title } : todo,
+      ),
+    );
+    let data = {
+      id,
+      title
+		};
+    console.log(id,title);
+    dispatch(editBoard(data))
+			.then(response => {
+				if (response.payload.success) {
+					//  props.history.push('/todo')
+				} else {
+					 alert('Error˝')
+				};
+		});
+  }, []);
+
   const onToggle = useCallback(id => {
+    console.log(id);
     setTodos(todos =>
       todos.map(todo =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo,
@@ -100,7 +132,7 @@ function Todo() {
       <div className="app">
         <TodoTemplate>
           <TodoInsert onInsert={onInsert} />
-          <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
+          <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} onEdit={onEdit} onEditToggle={onEditToggle} />
         </TodoTemplate>
       </div>
     </>

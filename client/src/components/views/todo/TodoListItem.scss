@@ -6,6 +6,10 @@
     background: #f8f9fa;
   }
 }
+.TodoEdit {
+
+}
+
 
 .TodoListItem {
   padding: 1rem;
@@ -43,6 +47,18 @@
     cursor: pointer;
     &:hover {
       color: #ff8787;
+    }
+  }
+
+  .editIcon {
+    display: flex;
+    padding-right: 10px;
+    align-items: center;
+    font-size: 1.5rem;
+    // color: #ff6b6b;
+    cursor: pointer;
+    &:hover {
+      color: #87c9ff;
     }
   }
 

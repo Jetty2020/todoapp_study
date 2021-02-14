@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
 	LOAD_BOARD,
 	UPLOAD_BOARD,
-	DELETE_BOARD
+	DELETE_BOARD,
+	EDIT_BOARD
 } from './_types';
 import { BOARD_SERVER } from '../components/Config.js';
 
@@ -29,6 +30,17 @@ export function deleteBoard(dataToSubmit){
 											.then(response => response.data);
 	return {
 		type: DELETE_BOARD,
+		payload: request
+	};
+};
+
+
+
+export function editBoard(dataToSubmit){
+	const request = axios.post(`${BOARD_SERVER}/edit`,dataToSubmit)
+											.then(response => response.data);
+	return {
+		type: EDIT_BOARD,
 		payload: request
 	};
 };
