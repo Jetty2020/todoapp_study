@@ -59,11 +59,6 @@ export const editBoard = async (req, res) => {
 export const loadBoard = async (req, res) => {
   try {
     const board = await Board.find({}).sort({ _id: -1 });
-    // console.log(board);
-    // let boardId =[];
-    // let boardTitle =[];
-    // board.forEach(ele => boardId.push(ele.id));
-    // board.forEach(ele => boardTitle.push(ele.title));
     return res.status(200).json({
       success: true,
       board: board

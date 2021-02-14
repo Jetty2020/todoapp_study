@@ -1,32 +1,26 @@
-import React, { useState, } from 'react';
+import React, { useState, useCallback } from 'react';
 import { MdAdd } from 'react-icons/md';
 import './TodoInsert.scss';
-import { useDispatch } from "react-redux";
-import { uploadBoard } from "../../../_actions/board_actions";
 
-// const TodoInsert = ({ onInsert }) => {
-function TodoInsert(props) {
-  const dispatch = useDispatch();
+const TodoInsert = ({ onInsert }) => {
+// function TodoInsert(props) {
   const [value, setValue] = useState('');
-
+  
   const onChange = (event) => {
     setValue(event.target.value);
   }
-	const onSubmit = (event) => {
-		event.preventDefault();
-		let body = {
-			 title: value,
-		};
-		dispatch(uploadBoard(body))
-			.then(response => {
-				if (response.payload.success) {
-					//  props.history.push('/')
-				} else {
-					 alert('Error˝')
-				};
-		});
-		setValue(''); // value 값 초기화
-	};
+  
+  const onSubmit = useCallback(
+    e => {
+      onInsert(value);
+      setValue(''); // value 값 초기화
+      
+      // submit 이벤트는 브라우저에서 새로고침을 발생시킵니다.
+      // 이를 방지하기 위하여 이 함수를 호출합니다.
+      e.preventDefault();
+    },
+    [onInsert, value],
+  );
 
   return (
     <form className="TodoInsert" onSubmit={onSubmit}>
