@@ -105,7 +105,6 @@ function Todo() {
       id,
       title
 		};
-    console.log(id,title);
     dispatch(editBoard(data))
 			.then(response => {
 				if (response.payload.success) {
@@ -117,7 +116,7 @@ function Todo() {
   }, []);
 
   const onToggle = useCallback(id => {
-    console.log(id);
+    // console.log(id);
     setTodos(todos =>
       todos.map(todo =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo,

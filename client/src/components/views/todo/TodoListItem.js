@@ -38,12 +38,12 @@ const TodoListItem = ({ todo, onRemove, onToggle, onEdit, onEditToggle,  style }
         >
           <input
             placeholder={title}
-            value={value ? value : title}
+            value={value}
             onChange={onChange}
           />
           <button 
             type="submit"
-            onClick={() => onEdit(id)}
+            // onClick={() => onEdit(id)}
           >
             <MdCheck />
           </button>
