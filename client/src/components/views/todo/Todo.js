@@ -7,14 +7,16 @@ import { useAsync } from 'react-async';
 import axios from 'axios';
 import { BOARD_SERVER } from '../../Config.js';
 import { useDispatch } from "react-redux";
-import { uploadBoard } from "../../../_actions/board_actions";
+import { 
+  uploadBoard,
+  deleteBoard 
+} from "../../../_actions/board_actions";
 
 const getBoards = async () => {
   const response = await axios.get(`${BOARD_SERVER}/load`,);
   
   return response.data.board;
 };
-console.log(getBoards());
 
 const createBulkTodos = () => {
   const array = [];
@@ -69,6 +71,18 @@ function Todo() {
 
   const onRemove = useCallback(id => {
     setTodos(todos => todos.filter(todo => todo.id !== id));
+    let data = {
+      id
+		};
+    dispatch(deleteBoard(data))
+			.then(response => {
+				if (response.payload.success) {
+					//  props.history.push('/todo')
+				} else {
+					 alert('Error˝')
+				};
+		});
+    console.log(id);
   }, []);
 
   const onToggle = useCallback(id => {

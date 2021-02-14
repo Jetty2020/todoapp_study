@@ -128,13 +128,12 @@ export const deleteBoard = async (req, res) => {
       throw Error();
     } else {
       await Board.findOneAndRemove({ _id: id });
-      console.log(board);
       return res.status(200).json({
         success: true,
       });
     }
   } catch (error) {
     console.log(error);
-    return res.json({ success: false, message: "Error occurred" });
+    return res.json({ success: false, message: "Error occurred at deleteBoard" });
   }
 };
